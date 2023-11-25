@@ -19,3 +19,19 @@ uvicorn app.main:app --reload
 ```
 
 Interact with the application at http://localhost:8000
+
+## Testing
+
+There is a test suite setup using Pytest. To run the tests, run the following command:
+
+```bash
+pytest
+```
+
+## Linting
+
+[Ruff](https://docs.astral.sh/ruff/) is setup to lint the code. To run the linter and fix issues, run the following command:
+
+```bash
+ruff check . --fix
+```
