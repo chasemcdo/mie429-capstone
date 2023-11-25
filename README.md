@@ -1,6 +1,6 @@
 # MIE429 Capstone Repository
 
-The repository contains the code associated with our capstone project. The project is a web application which integrates OpenAI's CLIP model to generate labels for images.
+The repository contains the code associated with our capstone project. The project is a web application which integrates [OpenAI's CLIP](https://openai.com/research/clip) to generate labels for images.
 
 ## Installation
 
@@ -18,11 +18,14 @@ Start the server:
 uvicorn app.main:app --reload
 ```
 
-Interact with the application at http://localhost:8000
+Interact with the application at http://localhost:8000/{path}
+
+## Documentation
+FastAPI provides an interactive documentation page at http://localhost:8000/docs
 
 ## Testing
 
-There is a test suite setup using Pytest. To run the tests, run the following command:
+There is a test suite setup using [Pytest](https://docs.pytest.org). To run the tests, run the following command:
 
 ```bash
 pytest
