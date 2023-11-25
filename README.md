@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ## Usage
 Start the server:
 ```bash
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 Interact with the application at http://localhost:8000
