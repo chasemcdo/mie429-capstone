@@ -7,9 +7,9 @@ app = FastAPI()
 async def hello_world():
     return {"message": "Hello World!"}
 
-@app.get("/clip")
-async def label():
-    return {"message": "Endpoint for getting CLIP Labels"}
+@app.post("/clip")
+async def label(file: UploadFile):
+    return {"label": f"A cool png with path: {file.filename}"}
 
 @app.post("/clip/cache")
 async def generate_cache(files: List[UploadFile]):
