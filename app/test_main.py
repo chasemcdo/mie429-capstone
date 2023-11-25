@@ -1,5 +1,4 @@
 from fastapi.testclient import TestClient
-from fastapi import UploadFile
 from os import path
 
 from .main import app
