@@ -15,8 +15,7 @@ def test_generate_cache():
         files = {
             'files': (tip_path, tip_file, 'image/png')
         }
-            # 'files': (vdt_path, vdt_file, 'image/png'),
-        response = client.post("/uploadfiles/", files=files) # headers={"Content-Type": "multipart/form-data", "accept": "application/json"})
+        response = client.post("/clip/train", files=files) # headers={"Content-Type": "multipart/form-data", "accept": "application/json"})
     
     print(response.content)
 
