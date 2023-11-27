@@ -19,9 +19,12 @@ async def label(file: UploadFile):
     request_object_content = await file.read()
     image = Image.open(io.BytesIO(request_object_content))
 
-    tip.run([image])
+    predictions = tip.run([image])
 
-    return {"label": f"A cool png with path: {file.filename}"}
+    return {
+            "message": "Image Classified Successfully Completed",
+            "predictions": predictions
+        }
 
 @app.post("/clip/cache")
 async def generate_cache(labels: List[str], files: List[UploadFile]):
@@ -38,4 +41,6 @@ async def generate_cache(labels: List[str], files: List[UploadFile]):
     tip.create_cache(data_dict)
 
     # Return the filenames as a JSON response
-    return {"filenames": len(labels)}
+    return {
+            "message": "Cache Generated Successfully"
+        }
