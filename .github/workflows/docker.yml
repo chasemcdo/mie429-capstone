@@ -25,4 +25,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: ${{ github.event_name == 'release' }}
-          tags: "chasemcdougall/capstone-api:${{  github.ref_name }}"
+          tags: "chasemcdougall/capstone-api:${{ github.ref_name }}"
