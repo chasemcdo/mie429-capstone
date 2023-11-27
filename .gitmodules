@@ -1,4 +1,4 @@
 [submodule "tip_adapter"]
-	path = ./tip_adapter
+	path = tip_adapter
 	url = https://github.com/chasemcdo/Tip-Adapter
 	branch = api
