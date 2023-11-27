@@ -4,9 +4,9 @@ The repository contains the code associated with our capstone project. The proje
 
 ## Setup
 
-Clone the TIP Adapter repository for access to TIP Python classes:
+Checkout the Tip Sub-Module for access to TIP Python classes:
 ```bash
-git clone -b api https://github.com/chasemcdo/Tip-Adapter.git tip_adapter
+git submodule update --recursive --remote
 ```
 
 ## Installation
