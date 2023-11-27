@@ -94,3 +94,4 @@ Werkzeug==3.0.1
 wilds==1.2.2
 yacs==0.1.8
 yapf==0.29.0
+redisai==1.3.0
