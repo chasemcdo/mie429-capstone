@@ -1,6 +1,6 @@
 from PIL import Image
 import io
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, UploadFile, HTTPException
 from typing import List
 from tip_adapter.tip_adapter import TipAdapter
 from torch import cuda, backends
@@ -29,7 +29,7 @@ async def label(file: UploadFile):
 @app.post("/clip/cache")
 async def generate_cache(labels: List[str], files: List[UploadFile]):
     if len(labels) != len(files):
-        return {"message": "The number of labels and files must be the same"}, 400
+        raise HTTPException(status_code=400, detail="The number of labels and files must be the same")
     
     data_dict = {}
     for label, file in zip(labels, files):
