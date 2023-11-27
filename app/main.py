@@ -1,3 +1,6 @@
+from redisai import Client
+from uuid import uuid4
+
 from PIL import Image
 import io
 from fastapi import FastAPI, UploadFile, HTTPException
@@ -11,6 +14,8 @@ device = 'cuda' if cuda.is_available() else 'mps' if backends.mps.is_available()
 if device != 'cuda':
     raise Exception("No GPU found, please check if CUDA is enabled")
 tip = TipAdapter(device=device)
+
+redisai_client = Client(host='localhost', port=6379)
 
 @app.post("/world")
 async def hello_world():
@@ -32,17 +37,24 @@ async def label(file: UploadFile):
 async def generate_cache(labels: List[str], files: List[UploadFile]):
     if len(labels) != len(files):
         raise HTTPException(status_code=400, detail="The number of labels and files must be the same")
-    
+
     data_dict = {}
     for label, file in zip(labels, files):
-        # Here, save the file or process it
         request_object_content = await file.read()
         image = Image.open(io.BytesIO(request_object_content))
         data_dict[label] = [image]
-        
+    
+    tip = TipAdapter(device=device)
     tip.create_cache(data_dict)
+    
+    if tip.cache['keys'] is None:
+        raise HTTPException(status_code=500, detail="Cache generation failed")
 
-    # Return the filenames as a JSON response
+    cache_id = str(uuid4())
+    redisai_client.tensorset(f"{cache_id}-keys", tip.cache["keys"].numpy())
+    redisai_client.tensorset(f"{cache_id}-values", tip.cache["values"].numpy())
+
     return {
-            "message": "Cache Generated Successfully"
+            "message": "Cache Generated Successfully",
+            "cache_id": cache_id
         }
