@@ -2,6 +2,13 @@
 
 The repository contains the code associated with our capstone project. The project is a web application which integrates [OpenAI's CLIP](https://openai.com/research/clip) to generate labels for images.
 
+## Setup
+
+Checkout the Tip Sub-Module for access to TIP Python classes:
+```bash
+git submodule update --recursive --remote
+```
+
 ## Installation
 
 Boot your virtual environment and install the required packages:

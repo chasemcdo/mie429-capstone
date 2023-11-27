@@ -8,10 +8,14 @@ on:
 
 jobs:
   test:
+    # This workflow is disabled due to cuda support which is not available on our current runners
+    if: false
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: 'true'
 
     - uses: actions/setup-python@v4
       with:

@@ -16,7 +16,7 @@ def test_label():
         response = client.post("/clip", files=files)
     
     assert response.status_code == 200
-    assert "label" in response.json()
+    assert "message" in response.json()
 
 def test_generate_cache():
     base_path = path.dirname(__file__)
@@ -26,12 +26,10 @@ def test_generate_cache():
         files = {
             'files': (tip_path, tip_file, 'image/png')
         }
-        response = client.post("/clip/cache", files=files)
+        response = client.post("/clip/cache", data={"labels": ["tip"]}, files=files)
     
     assert response.status_code == 200
-    assert "filenames" in response.json()
-    assert len(response.json()["filenames"]) == 1
-    assert "tip.png" in response.json()["filenames"][0]
+    assert "message" in response.json()
 
 def test_hello_world():
     response = client.post("/world")
