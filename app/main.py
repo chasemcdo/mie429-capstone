@@ -56,8 +56,8 @@ async def generate_cache(labels: List[str], files: List[UploadFile]):
         raise HTTPException(status_code=500, detail="Cache generation failed")
 
     cache_id = str(uuid4())
-    redisai_client.tensorset(f"{cache_id}-keys", tip.cache["keys"].numpy())
-    redisai_client.tensorset(f"{cache_id}-values", tip.cache["values"].numpy())
+    redisai_client.tensorset(f"{cache_id}-keys", tip.cache["keys"].cpu().numpy())
+    redisai_client.tensorset(f"{cache_id}-values", tip.cache["values"].cpu().numpy())
 
     return {
             "message": "Cache Generated Successfully",
