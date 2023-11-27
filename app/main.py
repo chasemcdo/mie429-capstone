@@ -11,8 +11,6 @@ from torch import cuda, backends, tensor
 app = FastAPI()
 
 device = 'cuda' if cuda.is_available() else 'mps' if backends.mps.is_available() else 'cpu'
-if device != 'cuda':
-    raise Exception("No GPU found, please check if CUDA is enabled")
 
 redisai_client = Client(host='localhost', port=6379)
 
