@@ -6,14 +6,13 @@ import io
 from fastapi import FastAPI, UploadFile, HTTPException
 from typing import List
 from tip_adapter.tip_adapter import TipAdapter
-from torch import cuda, backends
+from torch import cuda, backends, tensor
 
 app = FastAPI()
 
 device = 'cuda' if cuda.is_available() else 'mps' if backends.mps.is_available() else 'cpu'
 if device != 'cuda':
     raise Exception("No GPU found, please check if CUDA is enabled")
-tip = TipAdapter(device=device)
 
 redisai_client = Client(host='localhost', port=6379)
 
@@ -22,9 +21,15 @@ async def hello_world():
     return {"message": "Hello World!"}
 
 @app.post("/clip")
-async def label(file: UploadFile):
+async def label(cache_id: str, file: UploadFile):
     request_object_content = await file.read()
     image = Image.open(io.BytesIO(request_object_content))
+
+    tip = TipAdapter(device=device)
+    tip.load_cache({
+        "keys": tensor(redisai_client.tensorget(f"{cache_id}-keys")),
+        "values": tensor(redisai_client.tensorget(f"{cache_id}-values"))
+    })
 
     predictions = tip.run([image])
 
