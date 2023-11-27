@@ -8,6 +8,8 @@ from torch import cuda, backends
 app = FastAPI()
 
 device = 'cuda' if cuda.is_available() else 'mps' if backends.mps.is_available() else 'cpu'
+if device != 'cuda':
+    raise Exception("No GPU found, please check if CUDA is enabled")
 tip = TipAdapter(device=device)
 
 @app.post("/world")
