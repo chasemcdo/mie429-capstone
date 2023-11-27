@@ -8,6 +8,8 @@ on:
 
 jobs:
   test:
+    # This workflow is disabled due to cuda support which is not available on our current runners
+    if: false
     runs-on: ubuntu-latest
 
     steps:
