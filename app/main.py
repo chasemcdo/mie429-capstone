@@ -24,10 +24,10 @@ async def label(cache_id: str, file: UploadFile):
     image = Image.open(io.BytesIO(request_object_content))
 
     tip = TipAdapter(device=device)
-    tip.load_cache({
+    tip.cache = {
         "keys": tensor(redisai_client.tensorget(f"{cache_id}-keys")),
         "values": tensor(redisai_client.tensorget(f"{cache_id}-values"))
-    })
+    }
 
     predictions = tip.run([image])
 
