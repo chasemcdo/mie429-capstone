@@ -1,6 +1,7 @@
 from redisai import Client
 from uuid import uuid4
 from json import dumps, loads
+from os import environ
 
 from PIL import Image
 import io
@@ -13,7 +14,8 @@ app = FastAPI()
 
 device = 'cuda' if cuda.is_available() else 'mps' if backends.mps.is_available() else 'cpu'
 
-redisai_client = Client(host='localhost', port=6379)
+host = 'localhost' if "DEV" in environ else 'host.docker.internal'
+redisai_client = Client(host=host, port=6379)
 
 @app.post("/world")
 async def hello_world():
