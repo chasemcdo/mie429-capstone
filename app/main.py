@@ -31,7 +31,7 @@ async def label(cache_id: str, file: UploadFile):
         "keys": tensor(redisai_client.tensorget(f"{cache_id}-keys")),
         "values": tensor(redisai_client.tensorget(f"{cache_id}-values")),
         "clip_weights": tensor(redisai_client.tensorget(f"{cache_id}-clip_weights")),
-        "adapter": tensor(redisai_client.tensorget(f"{cache_id}-adapter")),
+        "adapter": redisai_client.modelget(f"{cache_id}-adapter"),
         "class_names": loads(redisai_client.get(f"{cache_id}-class_names"))
     }
 
@@ -63,7 +63,7 @@ async def generate_cache(labels: List[str], files: List[UploadFile]):
     redisai_client.tensorset(f"{cache_id}-keys", tip.cache["keys"].cpu().numpy())
     redisai_client.tensorset(f"{cache_id}-values", tip.cache["values"].cpu().numpy())
     redisai_client.tensorset(f"{cache_id}-clip_weights", tip.cache["clip_weights"].cpu().numpy())
-    redisai_client.tensorset(f"{cache_id}-adapter", tip.cache["adapter"].cpu().numpy())
+    redisai_client.modelset(f"{cache_id}-adapter", 'torch', 'cpu', tip.cache["adapter"].cpu())
     redisai_client.set(f"{cache_id}-class_names", dumps(tip.cache["class_names"]))
 
     return {
