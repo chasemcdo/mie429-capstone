@@ -1,5 +1,6 @@
 from redisai import Client
 from uuid import uuid4
+from json import dumps, loads
 
 from PIL import Image
 import io
@@ -28,6 +29,7 @@ async def label(cache_id: str, file: UploadFile):
         "keys": tensor(redisai_client.tensorget(f"{cache_id}-keys")),
         "values": tensor(redisai_client.tensorget(f"{cache_id}-values"))
     }
+    tip._class_names = loads(redisai_client.get(f"{cache_id}-classes"))
 
     predictions = tip.run([image])
 
@@ -56,6 +58,7 @@ async def generate_cache(labels: List[str], files: List[UploadFile]):
     cache_id = str(uuid4())
     redisai_client.tensorset(f"{cache_id}-keys", tip.cache["keys"].cpu().numpy())
     redisai_client.tensorset(f"{cache_id}-values", tip.cache["values"].cpu().numpy())
+    redisai_client.set(f"{cache_id}-classes", dumps(tip._class_names))
 
     return {
             "message": "Cache Generated Successfully",
