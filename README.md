@@ -43,5 +43,5 @@ pytest
 [Ruff](https://docs.astral.sh/ruff/) is setup to lint the code. To run the linter and fix issues, run the following command:
 
 ```bash
-ruff check . --fix
+ruff check app --fix
 ```

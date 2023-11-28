@@ -10,7 +10,7 @@ jobs:
   test:
     # This workflow is disabled due to cuda support which is not available on our current runners
     if: false
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v3
