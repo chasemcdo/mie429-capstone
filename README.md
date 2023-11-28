@@ -27,6 +27,9 @@ uvicorn app.main:app --reload
 
 Interact with the application at http://localhost:8000/{path}
 
+## Docker Images
+Pre-build `linux/amd64` images for this repository are published to our [public docker hub repository](https://hub.docker.com/r/chasemcdougall/capstone-api).
+
 ## Documentation
 FastAPI provides an interactive documentation page at http://localhost:8000/docs
 
