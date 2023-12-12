@@ -14,8 +14,8 @@ app = FastAPI()
 
 device = 'cuda' if cuda.is_available() else 'mps' if backends.mps.is_available() else 'cpu'
 
-host = 'localhost' if "DEV" in environ else 'host.docker.internal'
-redisai_client = Client(host=host, port=6379)
+host = environ["REDIS_URL"] if "REDIS_URL" in environ else 'redis://host.docker.internal:6379'
+redisai_client = Client.from_url(host)
 
 @app.post("/world")
 async def hello_world():
