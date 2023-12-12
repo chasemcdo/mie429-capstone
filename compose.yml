@@ -4,3 +4,12 @@ services:
     image: redislabs/redisai
     ports:
       - "6379:6379"
+  clip_api:
+    profiles: ["clip"]
+    image: chasemcdougall/capstone-api
+    ports:
+      - "80:80"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379
