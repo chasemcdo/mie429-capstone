@@ -26,6 +26,8 @@ cp .env.template .env
 source .env
 ```
 
+This sets the `REDIS_URL` environment variable to `redis://localhost:6379` by default. If you are using a different Redis instance, update the `.env` file accordingly.
+
 ## Usage
 Start the server:
 ```bash
