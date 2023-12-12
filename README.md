@@ -19,6 +19,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+## Environment Variable Setup
+
+```bash
+cp .env.template .env
+source .env
+```
+
 ## Usage
 Start the server:
 ```bash
