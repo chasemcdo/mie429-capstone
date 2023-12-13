@@ -1,0 +1,5 @@
+pytest
+jinja2
+pyyaml
+Deprecated
+python-dotenv
