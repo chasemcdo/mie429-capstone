@@ -1,14 +1,17 @@
-FROM continuumio/miniconda3
+FROM continuumio/miniconda3:master-alpine
 
-RUN apt update
-RUN apt install -y git
+RUN apk add git
 
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 RUN git clone --branch api https://github.com/chasemcdo/Tip-Adapter.git tip_adapter
-RUN pip install -r tip_adapter/requirements.txt
-RUN conda install -y pytorch torchvision cudatoolkit -c pytorch -c conda-forge
+RUN conda install -y --freeze-installed pytorch torchvision cudatoolkit -c pytorch -c conda-forge
+
+COPY requirements-dev.txt .
+RUN pip uninstall -r requirements-dev.txt  -y
+RUN apk del git
+RUN conda clean -afy
 
 COPY app /app
 
