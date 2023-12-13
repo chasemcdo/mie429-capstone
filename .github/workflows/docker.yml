@@ -29,3 +29,6 @@ jobs:
       - name: Build
         if: github.event_name == 'pull_request' || github.ref_name == 'main'
         uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: chasemcdougall/capstone-api:$dev
