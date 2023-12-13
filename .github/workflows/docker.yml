@@ -8,6 +8,10 @@ on:
   pull_request:
     branches:
       - 'main'
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 
 jobs:
   docker:
@@ -31,4 +35,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: chasemcdougall/capstone-api:$dev
+          tags: chasemcdougall/capstone-api:dev
