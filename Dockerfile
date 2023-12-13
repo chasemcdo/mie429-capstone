@@ -7,8 +7,9 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 RUN git clone --branch api https://github.com/chasemcdo/Tip-Adapter.git tip_adapter
-RUN pip install -r tip_adapter/requirements.txt
 RUN conda install -y pytorch torchvision cudatoolkit -c pytorch -c conda-forge
+
+RUN pip uninstall -r requirements-dev.txt  -y
 
 COPY app /app
 
