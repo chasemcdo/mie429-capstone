@@ -38,7 +38,7 @@ async def label(cache_id: str, file: UploadFile):
     predictions = tip.run([image])
 
     return {
-            "message": "Image Classified Successfully Completed",
+            "message": "Image Classification Complete",
             "predictions": predictions
         }
 
@@ -67,6 +67,6 @@ async def generate_cache(labels: List[str], files: List[UploadFile]):
     redisai_client.set(f"{cache_id}-class_names", dumps(tip.cache["class_names"]))
 
     return {
-            "message": "Cache Generated Successfully",
+            "message": "Cache Generation Complete",
             "cache_id": cache_id
         }
